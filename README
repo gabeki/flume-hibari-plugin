@@ -1,0 +1,37 @@
+flume-hibari-plugin v.0.1.0
+===========================
+
+This is a flume plugin that allows you to use Hibari as a sink.
+
+Events are stored in Hibari to a given table where <yyyyMMddHH> / <time based uuid> is the key and event body is the value.
+The sink uses hibari/gdss-ubf-proto tbf (Thrift API) as the entry point.
+
+
+Getting Started
+---------------
+
+1. Copy the entire folder to ${flume_dir}/plugins 
+
+2. cd ${flume_dir}/plugins/flume-hibari-plugin
+
+3. Build by running 'ant'. A hibari_plugin.jar file should be created.
+
+4. Modify ${flume_dir}/conf/flume-site.xml 
+
+	<property>
+	    <name>flume.plugin.classes</name>
+	    <value>com.hibari.plugins.SimpleHibariSink</value>
+	    <description>Comma separated list of plugin classes</description>
+	</property>
+
+
+Usage
+-----
+
+1. Start flume with flume-hibari-plugin classpath before you start flume masters / collectors
+
+	export FLUME_CLASSPATH=/export/home/hibari/flume/plugins/flume-hibari-plugin/lib/jug-asl-2.0.0.jar:/export/home/hibari/flume/plugins/flume-hibari-plugin/hibari_plugin.jar:$FLUME_CLASSPATH
+
+2. Configure SimpleHibariSink
+
+	SimpleHibariSink Constructor is pretty straight forward.  SimpleHibariSink(TableName, "host:port" ....)
